@@ -176,11 +176,25 @@ class AdsStore {
             return true;
         }
 
+        const previousLoading = this.loading;
+        const previousError = this.error;
+
         try {
-            await this.fetchAdById(adId);
+            this.loading = true;
+            this.error = null;
+        
+            const response = await query.get(`/ads/${adId}`);
+        
+            runInAction(() => {
+                this.currentAd = response.data;
+            });
             return true;
         } catch (error) {
             console.error('Error navigating to ad:', error);
+            runInAction(() => {
+                this.loading = previousLoading;
+                this.error = previousError;
+            });
             return false;
         }
     }

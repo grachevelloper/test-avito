@@ -110,10 +110,10 @@ export const AdsList = observer(() => {
                     {adsStore.loading ? (
                         <LoadingState 
                             progress={loadingProgress}
-                            title="Загрузка объявлений"
-                            description="Получаем данные с сервера..."
+                            title='Загрузка объявлений'
+                            description='Получаем данные с сервера...'
                             showPercentage={true}
-                            size="md"
+                            size='md'
                         />
                     ) : adsStore.ads.length === 0 ? (
                         <EmptyState error={adsStore.error} />

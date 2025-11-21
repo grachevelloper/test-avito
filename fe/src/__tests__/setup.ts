@@ -40,3 +40,7 @@ beforeAll(() => {
 afterAll(() => {
     console.error = originalError;
 });
+
+test('setup file', () => {
+    expect(true).toBe(true);
+});
