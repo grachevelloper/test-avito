@@ -5,33 +5,30 @@ interface ImageGalleryProps {
 }
 
 export const ImageGallery = ({images}: ImageGalleryProps) => (
-    <Card.Root height={{base: 'auto', md: '350px'}}>
-        <Card.Body height='100%'>
+    <Card.Root>
+        <Card.Body>
             <Heading size='md' mb={4}>
-        Галерея изображений
+                Галерея изображений
             </Heading>
             <Grid
-                templateColumns={{base: '1fr', md: '1fr 1fr'}}
-                templateRows={{
-                    base: `repeat(${Math.min(images.length, 4)}, 1fr)`,
-                    md: '1fr 1fr',
-                }}
-                gap={3}
-                minHeight='0'
+                templateColumns={{base: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)'}}
+                gap={4}
             >
-                {images.slice(0, 4).map((image, index) => (
+                {images.slice(0, 3).map((image, index) => (
                     <Box
                         key={index}
-                        backgroundColor='gray.100'
+                        backgroundColor='gray.50'
+                        border='1px dashed'
+                        borderColor='gray.200'
                         display='flex'
                         alignItems='center'
                         justifyContent='center'
                         borderRadius='md'
-                        minHeight='120px'
+                        aspectRatio='1/1'
                         position='relative'
                         overflow='hidden'
                     >
-                        {!image ? (
+                        {image ? (
                             <Image
                                 src={image}
                                 alt={`Изображение ${index + 1}`}
@@ -40,13 +37,18 @@ export const ImageGallery = ({images}: ImageGalleryProps) => (
                                 objectFit='cover'
                             />
                         ) : (
-                            <Text color='gray.500' fontSize='sm'>
-                Нет изображения
+                            <Text color='gray.400' fontSize='sm' textAlign='center'>
+                                Нет изображения
                             </Text>
                         )}
                     </Box>
                 ))}
             </Grid>
+            {images.length > 3 && (
+                <Text color='primary' fontSize='sm' mt={3}>
+                    +{images.length - 3} изображений
+                </Text>
+            )}
         </Card.Body>
     </Card.Root>
 );

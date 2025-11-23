@@ -19,6 +19,7 @@ export const SortSelect = ({value, onValueChange}: SortSelectProps) => {
     return (
         <Select.Root
             collection={sortOptions}
+            bg='background.default'
             size='sm'
             width='250px'
             value={[value]}
@@ -27,10 +28,9 @@ export const SortSelect = ({value, onValueChange}: SortSelectProps) => {
             <Select.HiddenSelect />
             <Select.Control>
                 <Select.Trigger
+                    border='border.default'
                     style={{
-                        backgroundColor: 'white',
                         outline: '2px solid {colors.border.default}',
-                        border: 'none',
                         borderRadius: '8px',
                         padding: '8px 12px',
                     }}
@@ -42,17 +42,22 @@ export const SortSelect = ({value, onValueChange}: SortSelectProps) => {
                 </Select.IndicatorGroup>
             </Select.Control>
             <Portal>
-                <Select.Positioner>
+                <Select.Positioner
+                    bg='background.default'
+                    borderColor='border.default'
+                >
                     <Select.Content
                         style={{
-                            borderRadius: '8px',
                             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                            border: '1px solid {colors.border.default}',
                         }}
+                        bg='background.default'
+                        borderColor='border.default'
                     >
                         {sortOptions.items.map((option) => (
                             <Select.Item 
-                                item={option} 
+                                item={option}
+                                bg='background.default'
+                                borderColor='border.default' 
                                 key={option.value}
                                 style={{
                                     padding: '8px 12px',

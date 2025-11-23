@@ -12,7 +12,7 @@ import {EmptyState} from './components/EmptyState';
 import {ErrorBanner} from './components/ErrorBanner';
 import {Filters} from './components/Filters/Filters';
 
-export const AdsList = observer(() => {
+export const AdsListPage = observer(() => {
     const searchInputRef = useRef<HTMLInputElement>(null);
     const [isSearchFocused, setIsSearchFocused] = useState(false);
     const [loadingProgress, setLoadingProgress] = useState(0);
@@ -78,15 +78,15 @@ export const AdsList = observer(() => {
     return (
         <Box
             padding={6}
-            background='gray.50'
+            bg='background.primary'
             minH='100vh'
             maxWidth='1200px'
             mx='auto'
         >
-            <Container maxW='container.xl'>
+            <Container maxW='container.xl' >
                 <Stack gap={6}>
                     <Flex justify='space-between' align='center'>
-                        <Heading size='xl'>Модерация объявлений</Heading>
+                        <Heading size='xl' color='primary.default'>Модерация объявлений</Heading>
                     </Flex>
 
                     <Filters

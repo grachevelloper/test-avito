@@ -1,1 +1,1 @@
-export {AdsDetails} from './AdsDetails';
+export {AdsDetailsPage as AdsDetails} from './AdsDetails';

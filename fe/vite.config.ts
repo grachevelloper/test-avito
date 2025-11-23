@@ -7,11 +7,22 @@ export default defineConfig({
     plugins: [react()],
     base: '/',
     server: {
-        port: 3000,
+        port: 5173,
         host: '0.0.0.0',
         proxy: {
             '/api': {
-                target: 'http://localhost:3001', // для того чтобы запустить локально заменить на http://localhost:3001
+                target: 'http://server:3001',
+                changeOrigin: true,
+                secure: false,
+            },
+        },
+    },
+    preview: {
+        port: 5173,
+        host: '0.0.0.0',
+        proxy: {
+            '/api': {
+                target: 'http://server:3001',
                 changeOrigin: true,
                 secure: false,
             },

@@ -22,7 +22,7 @@ import {DecisionsChart} from './components/DecisionsChart';
 import {StatsMetrics} from './components/StatsMetrics';
 import {StatsPeriodFilter} from './components/StatsPeriodFilter';
 
-export const Stats = observer(() => {
+export const StatsPage = observer(() => {
     const [selectedPeriod, setSelectedPeriod] = useState('week');
     const {progress, isLoading, startLoading, completeLoading, stepProgress} = useLoadingProgress();
 
@@ -51,7 +51,7 @@ export const Stats = observer(() => {
     };
 
     return (
-        <Box padding={6} background='gray.50' minH='100vh'>
+        <Box padding={6} minH='100vh'             bg='background.primary'>
             <Container maxW='container.xl'>
                 <Stack gap={6}>
                     <GlobalProgress progress={progress} isVisible={isLoading} />
@@ -82,7 +82,6 @@ export const Stats = observer(() => {
                         <>
                             <StatsMetrics />
 
-                            {/* УЛУЧШЕННАЯ СТРУКТУРА ГРИДА */}
                             <Grid 
                                 templateColumns={{
                                     base: '1fr',
@@ -98,7 +97,6 @@ export const Stats = observer(() => {
                                 }}
                                 gap={6}
                             >
-                                {/* Активность - главный график */}
                                 <Box 
                                     gridColumn={{
                                         base: '1',
@@ -116,7 +114,6 @@ export const Stats = observer(() => {
                                     <ActivityChart data={statsStore.activityChart}/>
                                 </Box>
                                 
-                                {/* Решения - второй по важности */}
                                 <Box 
                                     gridColumn={{
                                         base: '1',

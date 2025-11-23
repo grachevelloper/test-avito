@@ -1,4 +1,4 @@
-import {ChakraProvider, Box} from '@chakra-ui/react';
+import {ChakraProvider, Box, Theme} from '@chakra-ui/react';
 import {AnimatePresence} from 'framer-motion';
 import {
     BrowserRouter as Router,
@@ -8,21 +8,22 @@ import {
     useLocation,
 } from 'react-router-dom';
 
+import {useThemeContext} from '@/shared/components/Navigation/context';
 import {Navigation} from '@/shared/components/Navigation/Navigation';
 import {PageTransition} from '@/shared/components/PageTransition';
 import {theme} from '@/shared/config/theme';
 
-import {AdsDetails} from '../pages/AdsDetails/AdsDetails';
-import {AdsList} from '../pages/AdsList/AdsList';
-import {Stats} from '../pages/Stats/Stats';
+import {AdsDetailsPage} from '../pages/AdsDetails/AdsDetails';
+import {AdsListPage} from '../pages/AdsList/AdsList';
+import {StatsPage} from '../pages/Stats/Stats';
 
 import './index.scss';
 
 const routes = [
     {path: '/', element: <Navigate to='/list' replace />},
-    {path: '/list', element: <AdsList />},
-    {path: '/item/:id', element: <AdsDetails />},
-    {path: '/stats', element: <Stats />},
+    {path: '/list', element: <AdsListPage />},
+    {path: '/item/:id', element: <AdsDetailsPage />},
+    {path: '/stats', element: <StatsPage />},
 ];
 
 function AnimatedRoutes() {
@@ -48,14 +49,17 @@ function AnimatedRoutes() {
 }
 
 function App() {
+    const {resolvedTheme} = useThemeContext();
     return (
         <ChakraProvider value={theme}>
-            <Router>
-                <Box minH='100vh' width='100%' bg='background.primary'>
-                    <Navigation />
-                    <AnimatedRoutes />
-                </Box>
-            </Router>
+            <Theme appearance={resolvedTheme}>
+                <Router>
+                    <Box minH='100vh' width='100%' bg='background.primary'>
+                        <Navigation />
+                        <AnimatedRoutes />
+                    </Box>
+                </Router>
+            </Theme>
         </ChakraProvider>
     );
 }

@@ -11,7 +11,7 @@ import {AlertNotification} from './components/AlertNotification';
 import {RejectDialog} from './components/RejectDialog';
 import {useAdDetail} from './hooks/useAdDetail';
 
-export const AdsDetails = observer(() => {
+export const AdsDetailsPage = observer(() => {
     const {
         selectedReasons,
         customReason,
@@ -39,7 +39,7 @@ export const AdsDetails = observer(() => {
     } = useAdDetail();
 
     if (!isInitialized || (loading && !ad)) {
-        return <LoadingState />;
+        return <LoadingState progress={5}/>;
     }
 
     if (!ad) {
@@ -47,7 +47,7 @@ export const AdsDetails = observer(() => {
     }
 
     return (
-        <Box padding={6} background='gray.50' minH='100vh'>
+        <Box padding={6}  bg='background.primary' minH='100vh'>
             <Container maxW='container.xl'>
                 <AlertNotification alert={alert} isVisible={isAlertVisible} />
 

@@ -20,71 +20,83 @@ interface ModerationHistoryProps {
 }
 
 export const ModerationHistory = ({history}: ModerationHistoryProps) => (
-    <Card.Root maxHeight='350px'>
-        <Card.Body height='100%' display='flex' flexDirection='column'>
+    <Card.Root>
+        <Card.Body>
             <Heading size='md' mb={4}>
-        История модерации
+                История модерации
             </Heading>
-            <Box
-                flex='1'
-                overflowY='auto'
-                minHeight='0'
-                display='flex'
-                flexDirection='column'
-            >
-                {history && history.length > 0 ? (
-                    <VStack gap={3} align='stretch'>
-                        {history.map((item, index) => (
-                            <Card.Root key={index}>
-                                <Card.Body padding={3}>
-                                    <HStack justify='space-between' mb={2}>
-                                        <Text fontWeight='semibold' fontSize='sm'>
-                                            {item.moderatorName}
-                                        </Text>
-                                        <Text color='gray.500' fontSize='xs'>
-                                            {new Date(item.timestamp).toLocaleString('ru-RU')}
-                                        </Text>
-                                    </HStack>
-                                    <Badge
-                                        colorPalette={
-                                            item.action === 'approved'
-                                                ? 'green'
-                                                : item.action === 'rejected'
-                                                    ? 'red'
-                                                    : 'orange'
-                                        }
-                                        size='sm'
-                                        mb={2}
-                                    >
-                                        {item.action === 'approved'
-                                            ? 'Одобрено'
+            
+            {history && history.length > 0 ? (
+                <VStack gap={2} align='stretch' maxHeight='300px' overflowY='auto'>
+                    {history.map((item, index) => (
+                        <Box
+                            key={index}
+                            borderLeft='3px solid'
+                            borderLeftColor={
+                                item.action === 'approved'
+                                    ? 'green.500'
+                                    : item.action === 'rejected'
+                                        ? 'red.500'
+                                        : 'orange.500'
+                            }
+                            paddingLeft={3}
+                            paddingY={2}
+                        >
+                            <HStack justify='space-between' mb={1}>
+                                <Text fontWeight='semibold' fontSize='sm'>
+                                    {item.moderatorName}
+                                </Text>
+                                <Badge
+                                    colorPalette={
+                                        item.action === 'approved'
+                                            ? 'green'
                                             : item.action === 'rejected'
-                                                ? 'Отклонено'
-                                                : 'Возвращено на доработку'}
-                                    </Badge>
-                                    {item.comment && (
-                                        <Text fontSize='sm' color='gray.600'>
-                                            {item.comment}
-                                        </Text>
-                                    )}
-                                </Card.Body>
-                            </Card.Root>
-                        ))}
-                    </VStack>
-                ) : (
-                    <Box
-                        display='flex'
-                        alignItems='center'
-                        justifyContent='center'
-                        flex='1'
-                        height='100%'
-                    >
-                        <Text color='gray.500' fontSize='md' textAlign='center'>
-              Нет записей
-                        </Text>
-                    </Box>
-                )}
-            </Box>
+                                                ? 'red'
+                                                : 'orange'
+                                    }
+                                    size='sm'
+                                >
+                                    {item.action === 'approved'
+                                        ? 'Одобрено'
+                                        : item.action === 'rejected'
+                                            ? 'Отклонено'
+                                            : 'На доработку'}
+                                </Badge>
+                            </HStack>
+                            
+                            <Text color='gray.500' fontSize='xs' mb={1}>
+                                {new Date(item.timestamp).toLocaleString('ru-RU')}
+                            </Text>
+                            
+                            {item.comment && (
+                                <Box 
+                                    backgroundColor='gray.50' 
+                                    padding={2} 
+                                    borderRadius='md' 
+                                    mt={1}
+                                >
+                                    <Text fontSize='sm' color='gray.700'>
+                                        {item.comment}
+                                    </Text>
+                                </Box>
+                            )}
+                        </Box>
+                    ))}
+                </VStack>
+            ) : (
+                <Box
+                    display='flex'
+                    alignItems='center'
+                    justifyContent='center'
+                    padding={6}
+                    backgroundColor='gray.50'
+                    borderRadius='md'
+                >
+                    <Text color='gray.500' fontSize='md' textAlign='center'>
+                        Нет записей
+                    </Text>
+                </Box>
+            )}
         </Card.Body>
     </Card.Root>
 );

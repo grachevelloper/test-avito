@@ -286,7 +286,6 @@ describe('AdsStore', () => {
         });
 
         it('должен сбрасывать фильтры кроме сортировки', () => {
-            // Устанавливаем начальные фильтры
             adsStore.setFilters({
                 search: 'test',
                 status: ['pending'],
@@ -297,8 +296,8 @@ describe('AdsStore', () => {
                 sortOrder: 'asc',
             });
 
-            const result = adsStore.resetFilters();
-
+            adsStore.resetFilters();
+            
             expect(adsStore.filters.search).toBe('');
             expect(adsStore.filters.status).toEqual([]);
             expect(adsStore.filters.categoryId).toBeUndefined();

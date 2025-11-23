@@ -1,52 +1,74 @@
-import {VStack, Box, Text, Card, Heading} from '@chakra-ui/react';
+import {VStack, HStack, Text, Card, Heading, Box, Progress} from '@chakra-ui/react';
 
 interface SellerInfoProps {
-  name: string;
-  rating: number;
-  totalAds: number;
-  registeredAt: string;
+    registeredAt?: string;
+    name?: string;
+    rating?: number;
+    totalAds?: number;
 }
 
 export const SellerInfo = ({
     name,
-    rating,
-    totalAds,
+    rating = 0,
+    totalAds = 0,
     registeredAt,
 }: SellerInfoProps) => (
     <Card.Root>
         <Card.Body>
             <Heading size='md' mb={4}>
-        Информация о продавце
+                Информация о продавце
             </Heading>
-            <VStack gap={3} align='stretch'>
-                <Box>
-                    <Text fontWeight='semibold' fontSize='sm'>
-            Имя
+            <VStack gap={4} align='stretch'>
+                <HStack justify='space-between' paddingY={2} borderBottom='1px solid' borderColor='gray.100'>
+                    <Text fontWeight='semibold' fontSize='sm' color='gray.600'>
+                        Имя
                     </Text>
-                    <Text>{name || 'Не указано'}</Text>
+                    <Text fontWeight='medium'>{name || 'Не указано'}</Text>
+                </HStack>
+                
+                <Box paddingY={2} borderBottom='1px solid' borderColor='gray.100'>
+                    <HStack justify='space-between' mb={1}>
+                        <Text fontWeight='semibold' fontSize='sm' color='gray.600'>
+                            Рейтинг
+                        </Text>
+                        <Text fontWeight='medium'>
+                            {rating ? `${rating}/5.0` : 'Нет рейтинга'}
+                        </Text>
+                    </HStack>
+                    {rating > 0 && (
+                        <Progress.Root 
+                            value={rating * 20} 
+                            size='sm' 
+                            backgroundColor='gray.100'
+                            borderRadius='full'
+                            mt={1}
+                        >
+                            <Progress.Track backgroundColor='gray.100'>
+                                <Progress.Range backgroundColor='yellow.400' />
+                            </Progress.Track>
+                        </Progress.Root>
+                    )}
                 </Box>
-                <Box>
-                    <Text fontWeight='semibold' fontSize='sm'>
-            Рейтинг
+                
+                <HStack justify='space-between' paddingY={2} borderBottom='1px solid' borderColor='gray.100'>
+                    <Text fontWeight='semibold' fontSize='sm' color='gray.600'>
+                        Объявления
                     </Text>
-                    <Text>{rating ? `${rating}/5.0` : 'Нет рейтинга'}</Text>
-                </Box>
-                <Box>
-                    <Text fontWeight='semibold' fontSize='sm'>
-            Количество объявлений
+                    <Text fontWeight='medium' color={totalAds > 0 ? 'blue.600' : 'gray.500'}>
+                        {totalAds || 0}
                     </Text>
-                    <Text>{totalAds || 0}</Text>
-                </Box>
-                <Box>
-                    <Text fontWeight='semibold' fontSize='sm'>
-            Дата регистрации
+                </HStack>
+                
+                <HStack justify='space-between' paddingY={2}>
+                    <Text fontWeight='semibold' fontSize='sm' color='gray.600'>
+                        Регистрация
                     </Text>
                     <Text>
                         {registeredAt
                             ? new Date(registeredAt).toLocaleDateString('ru-RU')
                             : 'Не указана'}
                     </Text>
-                </Box>
+                </HStack>
             </VStack>
         </Card.Body>
     </Card.Root>

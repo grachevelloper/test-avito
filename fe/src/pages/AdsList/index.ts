@@ -1,1 +1,1 @@
-export {AdsList} from './AdsList';
+export {AdsListPage as AdsList} from './AdsList';

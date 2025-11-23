@@ -57,19 +57,19 @@ const config = defineConfig({
                     pressed: {value: '{colors.avito.orange.700}'},
                 },
                 background: {
-                    primary: {value: {base: '{colors.white}', _dark: '{colors.avito.gray.50}'}},
-                    secondary: {value: {base: '{colors.avito.gray.50}', _dark: '{colors.avito.gray.100}'}},
-                    tertiary: {value: {base: '{colors.avito.gray.100}', _dark: '{colors.avito.gray.200}'}},
+                    primary: {value: {base: '{colors.white}', _dark: '{colors.avito.gray.900}'}}, // ИСПРАВЛЕНО: был gray.50, стал gray.900
+                    secondary: {value: {base: '{colors.avito.gray.50}', _dark: '{colors.avito.gray.800}'}}, // ИСПРАВЛЕНО
+                    tertiary: {value: {base: '{colors.avito.gray.100}', _dark: '{colors.avito.gray.700}'}}, // ИСПРАВЛЕНО
                 },
                 text: {
-                    primary: {value: {base: '{colors.avito.gray.900}', _dark: '{colors.avito.gray.900}'}},
-                    secondary: {value: {base: '{colors.avito.gray.700}', _dark: '{colors.avito.gray.700}'}},
-                    tertiary: {value: {base: '{colors.avito.gray.500}', _dark: '{colors.avito.gray.500}'}},
-                    inverse: {value: {base: '{colors.white}', _dark: '{colors.avito.gray.50}'}},
+                    primary: {value: {base: '{colors.avito.gray.900}', _dark: '{colors.white}'}}, // ИСПРАВЛЕНО: для темной темы белый текст
+                    secondary: {value: {base: '{colors.avito.gray.700}', _dark: '{colors.avito.gray.200}'}}, // ИСПРАВЛЕНО
+                    tertiary: {value: {base: '{colors.avito.gray.500}', _dark: '{colors.avito.gray.400}'}}, // ИСПРАВЛЕНО
+                    inverse: {value: {base: '{colors.white}', _dark: '{colors.avito.gray.900}'}}, // ИСПРАВЛЕНО
                 },
                 border: {
-                    DEFAULT: {value: {base: '{colors.avito.gray.300}', _dark: '{colors.avito.gray.300}'}},
-                    strong: {value: {base: '{colors.avito.gray.400}', _dark: '{colors.avito.gray.400}'}},
+                    DEFAULT: {value: {base: '{colors.avito.gray.300}', _dark: '{colors.avito.gray.600}'}}, // ИСПРАВЛЕНО
+                    strong: {value: {base: '{colors.avito.gray.400}', _dark: '{colors.avito.gray.500}'}}, // ИСПРАВЛЕНО
                     focused: {value: {base: '{colors.avito.blue.500}', _dark: '{colors.avito.blue.400}'}},
                 },
                 status: {

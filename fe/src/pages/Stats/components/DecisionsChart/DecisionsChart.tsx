@@ -2,20 +2,40 @@ import {Card, Text, Stack, Box, HStack} from '@chakra-ui/react';
 import {observer} from 'mobx-react-lite';
 import {PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip} from 'recharts';
 
-// Цвета Авито
-const AVITO_COLORS = ['#1E88E5', '#FF7043', '#43A047', '#FDD835', '#5E35B1', '#E53935'];
+import {useThemeContext} from '@/shared/components/Navigation/context';
+
+// Цвета на основе вашей темы Авито
+const AVITO_COLORS = [
+    'var(--chakra-colors-avito-blue-500)',
+    'var(--chakra-colors-avito-orange-500)',
+    'var(--chakra-colors-status-success)',
+    'var(--chakra-colors-status-warning)',
+    'var(--chakra-colors-avito-gray-500)',
+    'var(--chakra-colors-status-error)',
+];
 
 interface DecisionsChartProps {
     data: any;
 }
 
 export const DecisionsChart = observer(({data}: DecisionsChartProps) => {
+    const {resolvedTheme} = useThemeContext();
+
+    const isDark = resolvedTheme === 'dark';
     if (!data) return null;
 
     const pieData = data.labels.map((label: string, index: number) => ({
         name: label,
         value: data.datasets[0].data[index] || 0,
     }));
+
+    const chartColors = {
+        tooltipBg: isDark ? 'var(--chakra-colors-background-primary)' : 'var(--chakra-colors-white)',
+        tooltipBorder: isDark ? 'var(--chakra-colors-border-default)' : 'var(--chakra-colors-border-default)',
+        tooltipText: isDark ? 'var(--chakra-colors-text-primary)' : 'var(--chakra-colors-text-primary)',
+        legendText: isDark ? 'var(--chakra-colors-text-primary)' : 'var(--chakra-colors-text-primary)',
+        stroke: isDark ? 'var(--chakra-colors-background-primary)' : 'var(--chakra-colors-white)',
+    };
 
     const renderCustomizedLabel = ({
         cx, cy, midAngle, innerRadius, outerRadius, percent,
@@ -31,7 +51,7 @@ export const DecisionsChart = observer(({data}: DecisionsChartProps) => {
             <text 
                 x={x} 
                 y={y} 
-                fill='white' 
+                fill={isDark ? 'var(--chakra-colors-text-inverse)' : 'var(--chakra-colors-text-inverse)'}
                 textAnchor={x > cx ? 'start' : 'end'} 
                 dominantBaseline='central'
                 fontSize={12}
@@ -43,10 +63,19 @@ export const DecisionsChart = observer(({data}: DecisionsChartProps) => {
     };
 
     return (
-        <Card.Root p={4} variant='outline' bg='white'>
+        <Card.Root 
+            p={4} 
+            variant='outline' 
+            bg='background.primary'
+            borderColor='border.default'
+        >
             <Stack gap={4}>
                 <HStack justify='space-between' align='center'>
-                    <Text fontSize='lg' fontWeight='semibold' color='gray.800'>
+                    <Text 
+                        fontSize='lg' 
+                        fontWeight='semibold' 
+                        color='text.primary'
+                    >
                         Распределение решений
                     </Text>
                 </HStack>
@@ -65,11 +94,11 @@ export const DecisionsChart = observer(({data}: DecisionsChartProps) => {
                                 dataKey='value'
                                 paddingAngle={2}
                             >
-                                {pieData.map((_, index: number) => (
+                                {pieData.map((_: any, index: number) => (
                                     <Cell
                                         key={`cell-${index}`}
                                         fill={AVITO_COLORS[index % AVITO_COLORS.length]}
-                                        stroke='#fff'
+                                        stroke={chartColors.stroke}
                                         strokeWidth={2}
                                     />
                                 ))}
@@ -77,15 +106,23 @@ export const DecisionsChart = observer(({data}: DecisionsChartProps) => {
                             <Tooltip 
                                 formatter={(value: number) => [`${value} решений`, 'Количество']}
                                 contentStyle={{
-                                    backgroundColor: 'white',
-                                    border: '1px solid #E2E8F0',
+                                    backgroundColor: chartColors.tooltipBg,
+                                    border: `1px solid ${chartColors.tooltipBorder}`,
                                     borderRadius: '8px',
+                                    color: chartColors.tooltipText,
                                 }}
                             />
                             <Legend 
                                 verticalAlign='bottom' 
                                 height={36}
-                                formatter={(value) => <span style={{color: '#2D3748', fontSize: '12px'}}>{value}</span>}
+                                formatter={(value) => (
+                                    <span style={{
+                                        color: chartColors.legendText, 
+                                        fontSize: '12px',
+                                    }}>
+                                        {value}
+                                    </span>
+                                )}
                             />
                         </PieChart>
                     </ResponsiveContainer>

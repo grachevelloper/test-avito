@@ -304,8 +304,8 @@ class AdsStore {
             categoryId: undefined,
             minPrice: undefined,
             maxPrice: undefined,
-            sortBy: currentSortBy,
-            sortOrder: currentSortOrder,
+            sortBy: currentSortBy || 'createdAt',
+            sortOrder: currentSortOrder || 'desc',
         };
         return this.filters;
     }

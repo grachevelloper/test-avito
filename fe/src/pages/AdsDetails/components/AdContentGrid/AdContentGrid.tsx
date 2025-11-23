@@ -1,4 +1,4 @@
-import {Grid, VStack} from '@chakra-ui/react';
+import {Grid, Card, VStack} from '@chakra-ui/react';
 
 import {ImageGallery} from './components/ImageGallery';
 import {ModerationHistory} from './components/ModerationHistory';
@@ -26,38 +26,26 @@ interface AdContentGridProps {
   };
 }
 
-export const AdContentGrid = ({
-    images,
-    moderationHistory,
-    category,
-    price,
-    status,
-    priority,
-    createdAt,
-    seller,
-}: AdContentGridProps) => {
+export const AdContentGrid = (props: AdContentGridProps) => {
     return (
-        <VStack gap={6} align='stretch'>
-            <Grid templateColumns={{base: '1fr', md: '1fr 1fr'}} gap={6}>
-                <ImageGallery images={images} />
-                <ModerationHistory history={moderationHistory} />
-            </Grid>
+        <Grid templateColumns={{base: '1fr', lg: '2fr 1fr'}} gap={6}>
+            <Card.Root>
+                <Card.Body>
+                    <VStack gap={6} align='stretch'>
+                        <ImageGallery images={props.images} />
+                        <ProductCharacteristics {...props} />
+                    </VStack>
+                </Card.Body>
+            </Card.Root>
 
-            <Grid templateColumns={{base: '1fr', md: '1fr 1fr'}} gap={6}>
-                <ProductCharacteristics
-                    category={category || ''}
-                    price={price || 0}
-                    status={status}
-                    priority={priority || ''}
-                    createdAt={createdAt}
-                />
-                <SellerInfo
-                    name={seller?.name || ''}
-                    rating={seller?.rating || 0}
-                    totalAds={seller?.totalAds || 0}
-                    registeredAt={seller?.registeredAt || ''}
-                />
-            </Grid>
-        </VStack>
+            <Card.Root>
+                <Card.Body>
+                    <VStack gap={6} align='stretch'>
+                        <SellerInfo {...props.seller} />
+                        <ModerationHistory history={props.moderationHistory} />
+                    </VStack>
+                </Card.Body>
+            </Card.Root>
+        </Grid>
     );
 };

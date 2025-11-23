@@ -1,23 +1,18 @@
 services:
-  backend:
-    build: ./tech-int3-server
-    container_name: backend
-    env_file:
-      - .env
+  server:
+    build: ./be
+    container_name: server
     environment:
       - HOST=0.0.0.0 
       - BE_PORT=${BE_PORT}
     ports:
-      - "${BE_PORT:-3001}:3001"  
-  frontend:
-    build: ./frontend
-    container_name: frontend
-    env_file:
-      - ./frontend/.env
+      - "3001:3001"  
+  client:
+    build: ./fe
+    container_name: client
     environment:
-      - APP_PORT=${APP_PORT}
-      - VITE_API_URL=${VITE_API_URL}
+      - VITE_API_URL=http://server:3001
     ports:
-      - "${APP_PORT:-3000}:3000"
+      - "5173:5173"
     depends_on:
-      - backend
+      - server

@@ -2,10 +2,11 @@ import {Box, Flex, HStack, Link, Button} from '@chakra-ui/react';
 import React from 'react';
 import {Link as RouterLink, useLocation} from 'react-router-dom';
 
+import {useThemeContext} from './context';
 
 export const Navigation: React.FC = () => {
     const location = useLocation();
-    // const {isDark, toggleTheme} = useTheme();
+    const {resolvedTheme, toggleTheme} = useThemeContext();
 
     const navItems = [
         {path: '/list', label: 'Список объявлений'},
@@ -17,7 +18,13 @@ export const Navigation: React.FC = () => {
     };
 
     return (
-        <Box borderBottom='1px' borderColor='border.default' bg='background.primary'>
+        <Box 
+            borderBottom='1px' 
+            borderColor='border.default' 
+            bg='background.primary'
+            position='relative'
+            zIndex={10}
+        >
             <Flex
                 h='16'
                 alignItems='center'
@@ -32,18 +39,20 @@ export const Navigation: React.FC = () => {
                             key={item.path}
                             asChild
                             fontWeight='medium'
-                            color={location.pathname === item.path ? 'primary.DEFAULT' : 'text.secondary'}
+                            color={location.pathname === item.path ? 'primary.default' : 'text.secondary'}
                             outline='none'
                             _hover={{
-                                color: 'primary.DEFAULT',
+                                color: 'primary.default',
                                 textDecoration: 'none',
                             }}
                             _active={{
                                 color: 'primary.pressed',
                             }}
-                            _focus={{
-                                boxShadow: 'none',
+                            _focusVisible={{
+                                color: 'primary.default',
+                                boxShadow: '0 0 0 2px {colors.border.focused}',
                             }}
+                            transition='color 0.2s ease-in-out'
                         >
                             <RouterLink to={item.path} onClick={handleClick}>
                                 {item.label}
@@ -53,17 +62,28 @@ export const Navigation: React.FC = () => {
                 </HStack>
 
                 <Button
-                    // onClick={toggleTheme}
+                    onClick={toggleTheme}
                     variant='outline'
                     size='sm'
-                    borderColor='border.DEFAULT'
+                    borderColor='border.default'
                     color='text.secondary'
+                    bg='background.primary'
                     _hover={{
                         bg: 'background.tertiary',
                         color: 'text.primary',
+                        borderColor: 'border.strong',
                     }}
+                    _active={{
+                        bg: 'background.tertiary',
+                        color: 'text.primary',
+                    }}
+                    _focusVisible={{
+                        boxShadow: '0 0 0 2px {colors.border.focused}',
+                    }}
+                    transition='all 0.2s ease-in-out'
+                    aria-label={`Переключить на ${resolvedTheme === 'dark' ? 'светлую' : 'тёмную'} тему`}
                 >
-                    {true ? '🌙' : '☀️'}
+                    {resolvedTheme === 'dark' ? '☀️' : '🌙'}
                 </Button>
             </Flex>
         </Box>
