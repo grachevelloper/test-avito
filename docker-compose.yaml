@@ -4,7 +4,7 @@ services:
     container_name: server
     environment:
       - HOST=0.0.0.0 
-      - BE_PORT=${BE_PORT}
+      - BE_PORT=3001
     ports:
       - "3001:3001"  
   client:
