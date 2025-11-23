@@ -14,50 +14,25 @@
 
 ##  Быстрый запуск
 
-### Способ 1: Docker (рекомендуется)
 
-1. **Клонируйте репозиторий**
-```bash
-git clone <your-repo-url>
-cd test-avito
-```
-
-2. **Настройте окружение для разработки**
+1. **Настройте окружение для разработки**
 - Перейдите в папку `fe` и создайте файл `.env`:
 ```bash
 cd fe
 echo "VITE_API_URL=http://localhost:3001/api/v1" > .env
 ```
 
-- Для запуска с Docker измените в `fe/vite.config.js` строку:
+- Для запуска через dev-режим измените в `fe/vite.config.js` строку:
 ```javascript
 target: 'http://server:3001'  // замените на 'http://localhost:3001' для локального запуска
 ```
 
-3. **Запустите приложение**
+2. **Запустите приложение**
 ```bash
 docker-compose up --build
 ```
 
 Приложение будет доступно по адресу: [http://localhost:5173](http://localhost:5173)
-
-### Способ 2: Локальная разработка
-
-1. **Установите зависимости**
-```bash
-cd fe
-npm install
-```
-
-2. **Настройте переменные окружения**
-```bash
-echo "VITE_API_URL=http://localhost:3001/api/v1" > .env
-```
-
-3. **Запустите сервер разработки**
-```bash
-npm run dev
-```
 
 ## Технологии
 
@@ -86,28 +61,5 @@ test-avito/
 └── docker-compose.yml  # Docker конфигурация
 ```
 
-##  Тестирование
 
-Проект включает комплекс unit-тестов:
-
-```bash
-cd fe
-npm run test           # Запуск тестов
-npm run test:coverage  # Тесты с покрытием
-npm run test:watch     # Режим наблюдения
-```
-
-**Что тестируется:**
-- Store-модули (MobX)
-- Бизнес-логика фильтрации
-- Основные компоненты интерфейса
-
-
-
-
-
-```bash
-cd fe
-npm run build
-```
 
