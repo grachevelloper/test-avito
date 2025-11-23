@@ -1,5 +1,4 @@
-```markdown
-<div align="center">
+
 
 ![React](https://img.shields.io/badge/React-19.x-61DAFB?logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript)
@@ -60,7 +59,7 @@ echo "VITE_API_URL=http://localhost:3001/api/v1" > .env
 npm run dev
 ```
 
-## 🛠 Технологии
+## Технологии
 
 - **Фронтенд:** React 19, TypeScript 5.x
 - **UI-библиотека:** Chakra UI v3
